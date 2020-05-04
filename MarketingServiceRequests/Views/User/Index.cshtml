@@ -1,0 +1,86 @@
+﻿@model MarketingServiceRequests.Models.UserInformation
+
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>Marketing Service Request / User Information</h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if ( Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-2 " style="float: left;">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2" style="float: left;">
+                @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label " })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.position, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2" style="float: left;">
+                @*@Html.LabelFor(model => model.IDNumber, htmlAttributes: new { @class = "control-label " })*@
+                @Html.Label("ID Number")
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IDNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @* @Html.ValidationMessageFor(model => model.userid, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2" style="float: left;">
+                @*@Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label " })*@
+                @Html.Label("Phone Number/Ext")
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2" style="float: left;">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("HomeGrid", "Home")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2">
+                <input type="submit" value="Next" class="btn" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+
+
+

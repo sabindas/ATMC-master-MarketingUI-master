@@ -1,0 +1,553 @@
+﻿@model MarketingServiceRequests.Models.ServiceIMCWebsite
+
+@{
+    ViewBag.Title = "IMCWebsite";
+}
+
+
+
+<head>
+    <style>
+        /* Manish CSS Starts */
+        .logo {
+            height: 60px;
+            width: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card {
+            margin: 0px 50px 10px 50px;
+        }
+
+        .navbar {
+            background-color: #fff !important;
+            margin: 0px;
+        }
+
+        .profile {
+            height: 40px;
+            width: 40px;
+        }
+
+        .nav-link {
+            border-left: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .fa {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .breadcrumb {
+            padding-left: 51px !important;
+            margin: 0px;
+            border: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .breadcrumb-item {
+            color: rgba(0, 0, 0, 1) !important;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-size: 15px;
+        }
+
+        .wrapper {
+            margin: 10px 50px 10px 40px;
+            display: flex;
+            background-color: #e9ecef;
+            font-size: 12px;
+        }
+
+        .step {
+            color: black;
+            font-weight: bold;
+            padding: 4%;
+            text-align: center;
+            object-fit: cover;
+        }
+
+        #step1 {
+            color: #fff;
+        }
+
+        #step2 {
+            color: rgba(70, 64, 64, 0.4);
+        }
+
+        #pointer0 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #385f92;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer1 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #385f92;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer2 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #fff;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer0:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #385f92;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        #pointer1:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #385f92;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        #pointer1:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #e9ecef;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        #pointer2:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #e9ecef;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+
+        #pointer2:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #fff;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        nav1 ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+            nav1 ul li a {
+                background-color: white;
+                text-decoration: none;
+                color: black;
+                padding: 8px 30px;
+                text-align: left;
+                display: block;
+            }
+
+                nav1 ul li a:hover {
+                    text-decoration: none;
+                    background-color: #F6FCFC;
+                    color: black;
+                }
+
+            nav1 ul li.active a {
+                background-color: #F6FCFC;
+                color: black;
+            }
+
+        border {
+            border-style: groove;
+        }
+
+        section {
+            background-color: white;
+            margin: 0px 50px 10px 50px;
+            padding: 0px;
+            font-size: 15px;
+        }
+        /* Create two columns/boxes that floats next to each other */
+        nav1 {
+            float: left;
+            width: 30%;
+            background: white;
+            padding: 10px;
+        }
+
+        /* Style the list inside the menu */
+        article {
+            float: left;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 68%;
+            background-color: #F6FCFC;
+        }
+
+        /* Clear floats after the columns */
+        section:before {
+            content: "";
+            display: table;
+            margin: 10px;
+            clear: both;
+        }
+
+        section:after {
+            content: "";
+            display: table;
+            margin: 10px;
+            clear: both;
+        }
+
+        .btn {
+            background-color: #E6E6E6;
+            border: 1px solid #E6E6E6;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            display: block;
+            font-size: 16px;
+            width: 100px;
+            float: right;
+            margin: 5px;
+        }
+
+            .btn:hover {
+                background-color: #385f92;
+                color: white;
+            }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: 0;
+            background: lightgray;
+            height: 23px;
+            width: 23px;
+            border: 1px solid white;
+        }
+
+            input[type="checkbox"]:checked {
+                background: hsl(138, 64%, 46%);
+            }
+
+            input[type="checkbox"]:hover {
+                filter: brightness(90%);
+            }
+
+            input[type="checkbox"]:after {
+                content: "";
+                position: relative;
+                left: 35%;
+                top: 10%;
+                width: 35%;
+                height: 60%;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+                display: none;
+            }
+
+            input[type="checkbox"]:checked:after {
+                display: block;
+            }
+
+
+        .second-col-checkboxes-label {
+            margin: 5px 10px 0px 10px;
+        }
+
+        .second-col-checkboxes {
+            position: relative;
+            padding-left: 0px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Manish CSS Endss */
+        input[type="file"] {
+            display: none;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            border-radius: 5px;
+            position: absolute;
+            background-color: #f3f3f3;
+            min-width: 30px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                border-radius: 5px;
+                color: black;
+                padding: 5px 10px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: lightseagreen;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input:submit').attr('disabled', false);
+            $('input:file').change(function () {
+                if ($(this).val()) {
+                    $('input:submit').removeAttr('disabled');
+                }
+            });
+            $("#PhysicianProﬁle_link").on('click', function (e) {
+                e.preventDefault();
+                $("#PhysicianProﬁle_input:hidden").trigger('click');
+
+            });
+            $('#PhysicianProﬁle_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#PhysicianProﬁle_span').html(FileName);
+            });
+            $("#PhysicianPhoto_link").on('click', function (e) {
+                e.preventDefault();
+                $("#PhysicianPhoto_input:hidden").trigger('click');
+
+            });
+            $('#PhysicianPhoto_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#PhysicianPhoto_span').html(FileName);
+            });
+            $("#DepartmentInformation_link").on('click', function (e) {
+                e.preventDefault();
+                $("#DepartmentInformation_input:hidden").trigger('click');
+
+            });
+            $('#DepartmentInformation_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#DepartmentInformation_span').html(FileName);
+            });
+            $("#LandingPage_link").on('click', function (e) {
+                e.preventDefault();
+                $("#LandingPage_input:hidden").trigger('click');
+
+            });
+            $('#LandingPage_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#LandingPage_span').html(FileName);
+            });
+            $("#IMCAcademyCourses_link").on('click', function (e) {
+                e.preventDefault();
+                $("#IMCAcademyCourses_input:hidden").trigger('click');
+
+            });
+            $('#IMCAcademyCourses_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#IMCAcademyCourses_span').html(FileName);
+            });
+
+            $('input[type="file"]').change(function () {
+
+                //because this is single file upload I use only first index
+                var f = this.files[0]
+
+                //33554432 32 mb 32*1024*1024
+                if (f.size > 33554432) {
+                    alert("Allowed file size exceeded. (Max. 32 MB)")
+                    this.value = null;
+                    var InputId = $(this).attr("id");
+                    var SpanId = '#' + InputId.substring(0, InputId.length - 5) + 'span';
+                    $(SpanId).html('');
+                    $('input:submit').attr('disabled', false);
+                }
+            });
+
+
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm("IMCWebsite", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="~/Images/logo.jpg" alt="" />
+
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link" href="#">
+                                @{
+                                    if (Session["UserName"] != null)
+                                    {
+                                        @Session["UserName"]
+                                    }
+                                } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                <img class="profile rounded-circle"
+                                     src="~/Images/profile.png"
+                                     alt="" />
+                            </a>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Logout", "LogOut", "Login")
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <div class="breadcrumb">
+            <div class="breadcrumb-item"><a href='@Url.Action("HomeGrid", "Home")'>Home</a></div>
+            <span class="fa fas fa-chevron-circle-right mt-1 mr-3 ml-3"></span>
+            <div class="breadcrumb-item active" aria-current="page">New Services</div>
+        </div>
+    </div>
+    <div class="border">
+        <div class="wrapper">
+
+            <div id="pointer0">
+                <p id="step1" class="step">Service Detail</p>
+            </div>
+           
+            <div id="pointer1">
+                <p id="step1" class="step">IMC Website</p>
+            </div>
+             
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <section>
+            <nav1>
+                <ul>
+                    <li><a href='@Url.Action("copywriting", "Services")'>Copy Writing</a></li>
+                    <li><a href='@Url.Action("Designs", "Services")'>Designs</a></li>
+                    <li><a href='@Url.Action("Events", "Services")'>Events</a></li>
+                    <li><a href='@Url.Action("SocialMedia", "Services")'>Social Media</a></li>
+                    <li class="active"><a href='@Url.Action("IMCWebsite", "Services")'>IMC Website</a></li>
+                    <li><a href='@Url.Action("Production", "Services")'>Production</a></li>
+                </ul>
+            </nav1>
+            <article>
+                <div>
+                    @Html.Label("Physician’s Proﬁle")
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <input type="file" name="PhysicianProﬁle" id="PhysicianProﬁle_input" />
+                    <a href="" id="PhysicianProﬁle_link" style="padding:0 10px 10px 10px;"> (Attach a Document) </a>
+                    <span id="PhysicianProﬁle_span"></span>
+                </div>
+                <div>
+                    @Html.Label("Physician’s Photo")
+                </div>
+
+                <div class="form-check second-col-checkboxes">
+                    <input type="file" name="PhysicianPhoto" id="PhysicianPhoto_input" />
+                    <a href="" id="PhysicianPhoto_link" style="padding:0 10px 0 10px"> (Attach a Photo) </a>
+                    <span id="PhysicianPhoto_span"></span>
+                </div>
+                <div>
+                    @Html.Label("Department Information")
+                </div>
+
+                <div class="form-check second-col-checkboxes">
+                    <input type="file" name="DepartmentInformation" id="DepartmentInformation_input" />
+                    <a href="" id="DepartmentInformation_link" style="padding:0 10px 0 10px"> (Attach a Document) </a>
+                    <span id="DepartmentInformation_span"></span>
+                </div>
+                <div>
+                    @Html.Label("Landing Page")
+                    <div class="form-check second-col-checkboxes">
+                        <input type="file" name="LandingPage" id="LandingPage_input" />
+                        <a href="" id="LandingPage_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                        <span id="LandingPage_span"></span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Label("IMC Academy Courses ")
+                    <div class="form-check second-col-checkboxes">
+
+                        <input type="file" name="IMCAcademyCourses" id="IMCAcademyCourses_input" />
+                        <a href="" id="IMCAcademyCourses_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                        <span id="IMCAcademyCourses_span"></span>
+                    </div>
+                </div>
+             </article>
+        </section>
+        <div class="card">
+            <div class="card-body">
+                <input type="submit" id="btnsubmit" value="Next" class="btn" />
+                <input type="button" value="Back" class="btn" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+        </div>
+    </div>
+}
+
+

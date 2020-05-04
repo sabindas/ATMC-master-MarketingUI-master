@@ -1,0 +1,170 @@
+﻿@model MarketingServiceRequests.Models.ServiceIMCWebsite
+
+@{
+    ViewBag.Title = "IMCWebsite";
+}
+
+
+
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input:submit').attr('disabled', true);
+            $('input:file').change(function () {
+                if ($(this).val()) {
+                    $('input:submit').removeAttr('disabled');
+                }
+            });
+                $("#PhysicianProﬁle_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#PhysicianProﬁle_input:hidden").trigger('click');
+
+                });
+                $('#PhysicianProﬁle_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#PhysicianProﬁle_span').html(FileName);
+                });
+                $("#PhysicianPhoto_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#PhysicianPhoto_input:hidden").trigger('click');
+
+                });
+                $('#PhysicianPhoto_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#PhysicianPhoto_span').html(FileName);
+                });
+                $("#DepartmentInformation_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#DepartmentInformation_input:hidden").trigger('click');
+
+                });
+                $('#DepartmentInformation_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#DepartmentInformation_span').html(FileName);
+                });
+                $("#LandingPage_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#LandingPage_input:hidden").trigger('click');
+
+                });
+                $('#LandingPage_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#LandingPage_span').html(FileName);
+                });
+                $("#IMCAcademyCourses_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#IMCAcademyCourses_input:hidden").trigger('click');
+
+                });
+                $('#IMCAcademyCourses_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#IMCAcademyCourses_span').html(FileName);
+                });
+
+                $('input[type="file"]').change(function () {
+
+                    //because this is single file upload I use only first index
+                    var f = this.files[0]
+
+                    //33554432 32 mb 32*1024*1024
+                    if (f.size > 33554432)
+                    {
+                        alert("Allowed file size exceeded. (Max. 32 MB)")
+                        this.value = null;
+                        var InputId = $(this).attr("id");
+                        var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                        $(SpanId).html('');
+                        $('input:submit').attr('disabled', true);
+                    }
+                });
+
+
+            });
+    </script>
+</head>
+
+@using (Html.BeginForm("IMCWebsite", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>
+                Section Two / Service Details / IMC Website
+            </h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <h4 class="col-md-4">Physician’s Proﬁle</h4>
+            <div class="col-md-8 " style="padding-top:8px">
+
+                <input type="file" name="PhysicianProﬁle" id="PhysicianProﬁle_input" />
+                <a href="" id="PhysicianProﬁle_link" style="padding:0 10px 0 10px;"> (Attach a Document) </a>
+                <span id="PhysicianProﬁle_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4 class="col-md-4">Physician’s Photo </h4>
+            <div class="col-md-8 pull-right" style="padding-top:8px">
+
+                <input type="file" name="PhysicianPhoto" id="PhysicianPhoto_input" />
+                <a href="" id="PhysicianPhoto_link" style="padding:0 10px 0 10px"> (Attach a Photo) </a>
+                <span id="PhysicianPhoto_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4 class="col-md-4">Department Information </h4>
+            <div class="col-md-8 pull-right" style="padding-top:8px">
+
+                <input type="file" name="DepartmentInformation" id="DepartmentInformation_input" />
+                <a href="" id="DepartmentInformation_link" style="padding:0 10px 0 10px"> (Attach a Document) </a>
+                <span id="DepartmentInformation_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4 class="col-md-4">Landing Page</h4>
+            <div class="col-md-8 pull-right" style="padding-top:8px">
+
+                <input type="file" name="LandingPage" id="LandingPage_input" />
+                <a href="" id="LandingPage_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                <span id="LandingPage_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4 class="col-md-4">IMC Academy Courses </h4>
+            <div class="col-md-8 pull-right" style="padding-top:8px">
+
+                <input type="file" name="IMCAcademyCourses" id="IMCAcademyCourses_input" />
+                <a href="" id="IMCAcademyCourses_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                <span id="IMCAcademyCourses_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+
+

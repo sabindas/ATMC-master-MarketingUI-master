@@ -1,0 +1,135 @@
+﻿@model MarketingServiceRequests.Models.ServiceCopyWriting
+
+@{
+    ViewBag.Title = "CopyWriting";
+}
+
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input[type=submit]').prop("disabled", true);
+            $("#ContentVerification_link").on('click', function (e) {                
+                e.preventDefault();
+                $("#ContentVerification_input:hidden").trigger('click');
+            });
+            $("#Translation_link").on('click', function (e) {
+                e.preventDefault();
+                $("#Translation_input:hidden").trigger('click');
+
+            });
+            $("#Textdeveloping_link").on('click', function (e) {
+                e.preventDefault();
+                $("#Textdeveloping_input:hidden").trigger('click');
+
+            });
+            $('#ContentVerification_input').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#ContentVerification_span').html(fileName);
+                $('input[type=submit]').prop("disabled", false);
+            });
+            $('#Translation_input').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#Translation_span').html(fileName);
+                $('input[type=submit]').prop("disabled", false);
+            });
+            $('#Textdeveloping_input').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#Textdeveloping_span').html(fileName);
+                $('input[type=submit]').prop("disabled", false);
+            });
+
+            $('input[type="file"]').change(function () {
+
+                //because this is single file upload I use only first index
+                var f = this.files[0]
+
+                //33554432 32 mb 32*1024*1024
+                if (f.size > 33554432)
+                {
+                    alert("Allowed file size exceeded. (Max. 32 MB)")
+                    this.value = null;
+                    var InputId = $(this).attr("id");
+                    var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                    $(SpanId).html('');
+                    $('input:submit').attr('disabled', true);
+                }
+            });
+
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm("copywriting", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>Section Two / Service Details / Copy Writing</h2>
+        </div>       
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-7 pull-left">
+                <h3>Content Verification </h3>
+            </div>
+            <div class="col-md-5" style="padding-top:15px;">
+                <div class="pull-right" style="vertical-align:middle;">
+                    <input type="file" name="ContentVerification" id="ContentVerification_input" />
+                    <a href="" id="ContentVerification_link" style="padding:0 10px 0 10px"> (Attach Document) </a>
+                    <span id="ContentVerification_span"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-7 pull-left">
+                <h3>Translation</h3><h5>(Arabic to English / English to Arabic)</h5>
+            </div>
+            <div class="col-md-5" style="padding-top:15px;">
+                <div class="pull-right" style="vertical-align:middle;">
+                    <input type="file" name="Translation" id="Translation_input" />
+                    <a href="" id="Translation_link" style="padding:0 10px 0 10px"> (Attach Document) </a>
+                    <span id="Translation_span"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-7 pull-left">
+                <h3>Text developing </h3><h5> (Please provide information about it) </h5>
+            </div>
+            <div class="col-md-5" style="padding-top:15px;">
+                <div class="pull-right" style="vertical-align:middle;">
+                    <input type="file" name="Textdeveloping" id="Textdeveloping_input" />
+                    <a href="" id="Textdeveloping_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                    <span id="Textdeveloping_span"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>    
+}
+
+

@@ -1,0 +1,547 @@
+﻿@model MarketingServiceRequests.Models.ServiceDetails
+
+@{
+    ViewBag.Title = "ServiceDetail";
+
+}
+
+<head>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+
+    <style>
+
+        #Sponsors_input {
+            display: none;
+        }
+
+        #Approved_input {
+            display: none;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-size:15px;
+        }
+
+        .navbar {
+            background-color: #fff !important;
+            margin: 0px;
+        }
+
+        .nav-link {
+            border-left: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .logo {
+            height: 50px;
+            width: 60px;
+        }
+
+        .profile {
+            height: 40px;
+            width: 40px;
+        }
+
+
+
+        #step1 {
+            color: #fff;
+        }
+
+        #step2 {
+            color: rgba(70, 64, 64, 0.4);
+        }
+
+        .fa {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .breadcrumb {
+            padding-left: 51px !important;
+            margin: 0px;
+            border: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        a {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .breadcrumb-item {
+            color: rgba(0, 0, 0, 1) !important;
+        }
+
+        #pointer1 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #385f92;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer2 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #fff;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer1:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #385f92;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        #pointer2:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #e9ecef;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+
+        #pointer2:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #fff;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        .wrapper {
+            margin: 10px 50px 10px 40px;
+            display: flex;
+            background-color: #e9ecef;
+            font-size: 12px;
+        }
+
+        .card {
+            margin: 0px 50px 10px 50px;
+        }
+
+        input[type="text"] {
+            background-color: #e9ecef;
+        }
+
+        .step {
+            color: black;
+            font-weight: bold;
+            padding: 4%;
+            text-align: center;
+            object-fit: cover;
+        }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: 0;
+            background: lightgray;
+            height: 23px;
+            width: 23px;
+            border: 1px solid white;
+            margin: 5px;
+        }
+
+            input[type="checkbox"]:checked {
+                background: hsl(138, 64%, 46%);
+            }
+
+            input[type="checkbox"]:hover {
+                filter: brightness(90%);
+            }
+
+            input[type="checkbox"]:after {
+                content: "";
+                position: relative;
+                left: 35%;
+                top: 10%;
+                width: 35%;
+                height: 60%;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+                display: none;
+            }
+
+
+            input[type="checkbox"]:checked:after {
+                display: block;
+            }
+
+        .second-col-checkboxes-label {
+            margin: 5px 10px 0px 10px;
+        }
+
+        .second-col-checkboxes {
+            position: relative;
+            padding-left: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+
+        .column-division {
+            margin: 10px;
+        }
+
+        .column-two-division {
+            margin: 10px;
+        }
+
+        .target-label {
+            margin-bottom: 5px;
+        }
+
+        .second-col-link {
+            color: #385f92;
+        }
+
+        .btn {
+            background-color: #E6E6E6;
+            border: 1px solid #E6E6E6;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            display: block;
+            font-size: 15px;
+            width: 100px;
+            float: right;
+            margin: 5px;
+        }
+
+            .btn:hover {
+                background-color: #385f92;
+                color: white;
+            }
+
+        .container {
+            font-size: 15px;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            border-radius: 5px;
+            position: absolute;
+            background-color: #f3f3f3;
+            min-width: 30px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                border-radius: 5px;
+                color: black;
+                padding: 5px 10px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: lightseagreen;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            $('input[type=submit]').prop("disabled", false);
+
+
+            $("#Sponsors_link").on('click', function (e) {
+                e.preventDefault();
+                $("#Sponsors_input:hidden").trigger('click');
+
+            });
+
+            $("#approvedbudgetfrommanagement_link").on('click', function (e) {
+                e.preventDefault();
+                $("#Approved_input:hidden").trigger('click');
+            });
+
+
+            $('#Sponsors_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#Sponsors_span').html(FileName);
+            });
+            $('#Approved_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#Approved_span').html(FileName);
+            });
+
+            var chkboxes1 = $('.chkbox');
+            var chkboxes2 = $('.chkcostctr');
+
+
+
+            $('.chkbox').on('change', function () {
+                //$('.chkbox').not(this).prop('checked', false);
+
+                debugger;
+                if (chkboxes1.filter(':checked').length > 0) {
+                    if (!chkboxes1.filter(':checked').length + !chkboxes2.filter(':checked').length == 0) {
+
+                        if ($('#Sponsor').prop('checked') == true) {
+                            if ($('#Sponsors_input')[0].files.length != 0) {
+                                $('input[type=submit]').prop('disabled', false);
+                            }
+                            else { $('input[type=submit]').prop('disabled', false); }
+                        }
+                        if ($('#approvedbudget').prop('checked') == true) {
+                            if ($('#Approved_input')[0].files.length != 0) {
+                                $('input[type=submit]').prop('disabled', false);
+                            }
+                            else { $('input[type=submit]').prop('disabled', false); }
+                        }
+
+
+                    }
+                } else { $('input[type=submit]').prop('disabled', false); }
+            });
+
+
+
+            $('.chkcostctr').on('change', function () {
+                $('.chkcostctr').not(this).prop('checked', false);
+                $('input[type="file"]').val('');
+                $('#Sponsors_span').html('');
+                $('#Approved_span').html('');
+                $('input:submit').attr('disabled', false);
+            });
+
+
+
+            //$('input[type="checkbox"]').on('change', function () {
+            //    $('input[type=submit]').prop('disabled', !chkboxes1.filter(':checked').length + !chkboxes2.filter(':checked').length);
+            //}).trigger('change');
+
+
+            $('input[type="file"]').change(function () {
+
+                //because this is single file upload I use only first index
+                var f = this.files[0]
+
+                //33554432 32 mb 32*1024*1024
+                if (f.size > 33554432) {
+                    alert("Allowed file size exceeded. (Max. 32 MB)")
+                    this.value = null;
+                    var InputId = $(this).attr("id");
+                    var SpanId = '#' + InputId.substring(0, InputId.length - 5) + 'span';
+                    $(SpanId).html('');
+                    //$('input:submit').attr('disabled', true);
+                }
+
+                if (!chkboxes1.filter(':checked').length + !chkboxes2.filter(':checked').length == 0) {
+                    if ($('#Sponsor').prop('checked') == true) {
+                        if ($('#Sponsors_input')[0].files.length != 0) {
+                            $('input[type=submit]').prop('disabled', false);
+                        }
+                        else {
+                            $('input[type=submit]').prop('disabled', false
+                            );
+                        }
+                    }
+                    if ($('#approvedbudget').prop('checked') == true) {
+                        if ($('#Approved_input')[0].files.length != 0) {
+                            $('input[type=submit]').prop('disabled', false);
+                        }
+                        else { $('input[type=submit]').prop('disabled', false); }
+                    }
+                }
+
+            });
+
+
+
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm("servicedetail", "Servicedetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="~/Images/logo.jpg" alt="" />
+
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link" href="#">
+                                @{
+                                    if (Session["UserName"] != null)
+                                    {
+                                        @Session["UserName"]
+                                    }
+                                } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                <img class="profile rounded-circle"
+                                     src="~/Images/profile.png"
+                                     alt="" />
+                            </a>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Logout", "LogOut", "Login")
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <div class="breadcrumb">
+            <div class="breadcrumb-item"><a href="#">Home</a></div>
+            <span class="fa fas fa-chevron-circle-right mt-1 mr-3 ml-3"></span>
+            <div class="breadcrumb-item active" aria-current="page">New Services</div>
+        </div>
+    </div>
+    <div class="border">
+        <div class="wrapper">
+            <div id="pointer1">
+                <p id="step1" class="step">Service Detail</p>
+            </div>
+            
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>
+                                <div class="column-division">
+                                    <div>
+                                        @Html.Label("Title")
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new {  @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="column-division">
+                                    <div>
+                                        @Html.Label("Business Objective")
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.EditorFor(model => model.BusinessObjective, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BusinessObjective, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="column-division">
+                                    <div>
+                                        @Html.Label("Desired Launch Date")
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.EditorFor(model => model.DesiredLaunchDate, new { htmlAttributes = new { @Value = "DD, MM, yy", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DesiredLaunchDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="column-division column-two-division">
+                                <div class="target-label">
+                                    @Html.Label("Target Audience")
+                                </div>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        @Html.CheckBox("Public", false)<span style="padding:0 10px 0 0px">Public</span>
+                                        @Html.CheckBox("IMCPatients", false) <span style="padding:0 10px 0 0px"> IMC Patients </span>
+                                        @Html.CheckBox("IMCEmployees", false) <span style="padding:0 10px 0 0px"> IMC Employees </span>
+                                        @Html.CheckBox("Other", false)<span style="padding:0 10px 0 0px">Others</span>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.TargetAudience, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="column-division column-two-division">
+                                <div>
+                                    @Html.Label("Cost Center")
+                                </div>
+                                <div>
+                                    <div class="form-check second-col-checkboxes">
+
+                                        <div>
+
+                                            @Html.CheckBox("Sponsor", false, new { @class = "chkcostctr", })<span style="padding-left:5px;margin:0px"> Sponsors</span>
+                                            <input type="file" name="Sponsors" id="Sponsors_input" />
+                                            <a href="" id="Sponsors_link" style="padding:0 10px 0 10px"> (Attach Letters) </a>
+                                            <span id="Sponsors_span"></span>
+                                        </div>
+
+                                        @Html.ValidationMessageFor(model => model.CostCenter, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-check second-col-checkboxes">
+                                        <div>
+                                            @Html.CheckBox("approvedbudget", false, new { @class = "chkcostctr", })<span>Approved budget from management</span>
+                                            <input type="file" name="approvedbudgetfrommanagement" id="Approved_input" />
+                                            <a href="" id="approvedbudgetfrommanagement_link" style="padding:0 10px 0 10px"> (Attach Approval) </a>
+                                            <span id="Approved_span"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <input type="submit" value="Next" id="btnsubmit" class="btn" />
+            </div>
+        </div>
+
+        </div>
+
+        }

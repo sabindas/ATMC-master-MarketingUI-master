@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "ServiceCategories";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>Section Two / Service Details</h2>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != string.Empty || Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+
+                }
+            </div>
+
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+
+                @Html.ActionLink("Logout", "LogOut", "Login")
+
+            </div>
+
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>Copy Writing </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("copywriting", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>Designs </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("Designs", "Services")">
+
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>Events </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("Events", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>Social Media  </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("SocialMedia", "Services")">
+
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>IMC Website </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("IMCWebsite", "Services")">
+
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-10 pull-left">
+                <h3>Production </h3>
+                @*@Html.Label("Copy Writing ", htmlAttributes: new { @class = "control-label" })*@
+            </div>
+            <div class="pull-right">
+                <div class="col-md-2">
+                    <a href="@Url.Action("Production", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 30px;"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @*<div class="form-group ">
+            <div class="pull-right">
+                <div class="col-md-12">
+                    <input type="submit" value="Next" class="btn btn-success" />
+                </div>
+            </div>
+        </div>*@
+    </div>
+}
+

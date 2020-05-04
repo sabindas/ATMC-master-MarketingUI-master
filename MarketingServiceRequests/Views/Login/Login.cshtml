@@ -1,0 +1,90 @@
+﻿@model MarketingServiceRequests.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Marketing Service Request</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        body {
+            background-image: url('../Images/medical_img.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -5;
+        }
+
+        .col-md-8 {
+            float: none;
+            margin-left: 15px;
+        }
+
+        .control-label {
+            padding: 2px;
+            margin-left: 34px;
+        }
+
+        .ol-md-offset-5 col-md-7 {
+            margin-left: 8.66666666666667%
+        }
+
+        .form-control {
+            width: 130%;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="bacground">
+
+        <div class="medical_logo"><img src="~/Images/logo.jpg" style="width:130px;height:110px;background-size:cover;background-repeat:no-repeat;border-radius:0px 0px 35px 35px;margin: -58px 0px 0px 300px;box-shadow:10px 10px 10px"></div>
+
+        <div class="form-horizontal container body-content" style="width:25%;height:78%;background:white;box-shadow:10px 10px 20px;margin-right:175px;margin-top:-30px">
+
+
+            <div style="background-color:white;margin:10px 0px 15px 0px;padding:20px 10px 20px 10px;font-weight:bold;text-align:center;">
+                <h2 style=" font-size: 22px; ">Marketing Service Request</h2>
+            </div>
+            <div class="form-group" style="padding: 0 0 0 0px">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger col-md-offset-4 col-md-8" })
+            </div>
+            <div class="form-group ">
+
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-offset-2 col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-offset-2 col-md-2" })
+                <div class="col-md-8 " style="margin-left:15px">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <p style="margin-left:40px">@Html.CheckBox("isNewlyEnrolled", true)Remember</p>
+            <div class="form-group">
+                <div class="col-md-offset-5 col-md-7" style="margin-left:8.66666666666667%">
+                    <input type="submit" value="Login" class="btn" style="background-color:lawngreen;color:white;width:150%" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}

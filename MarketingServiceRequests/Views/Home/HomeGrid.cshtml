@@ -1,0 +1,297 @@
+﻿@using GridMvc.Html
+@model IEnumerable<MarketingServiceRequests.Models.MarketingServiceRequest>
+
+
+@{
+    ViewBag.Title = "HomeGrid";
+}
+
+<head>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <script src="~/Scripts/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/jquery.jqGrid.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.0.min.js"></script>
+
+    <style>
+        body {
+            background-color: #e9ecef;
+            font-size: 15px;
+        }
+
+        .navbar {
+            background-color: #fff !important;
+          
+        }
+
+        .nav-link {
+            border-left: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .logo {
+            height: 50px;
+            width: 60px;
+        }
+
+        .profile {
+            height: 40px;
+            width: 40px;
+        }
+        .body {
+            background: rgb(244,244,244);
+            background-image: none;
+        }
+
+        .ui-jqgrid tr.jqgrow td {
+            /* wrap column content*/
+            white-space: normal !important;
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            border: 1px solid white /*{borderColorDefault}*/;
+            background: blue /*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png) /*{bgImgUrlDefault}*/ 50% /*{bgDefaultXPos}*/ 50% /*{bgDefaultYPos}*/ repeat-x /*{bgDefaultRepeat}*/;
+            font-weight: normal /*{fwDefault}*/;
+            color: white /*{fcDefault}*/;
+        }
+
+        .ui-jqgrid .ui-jqgrid-htable th {
+            height: 42px;
+            padding: 0 2px 0 2px;
+        }
+
+        #JQGridPager_center {
+            white-space: pre;
+            width: 256px; /* float: right; */ /* margin-left: 20px; */
+            padding-left: 420px;
+        }
+
+        #next_JQGridPager:hover {
+            background: blue;
+        }
+
+        #JQGridPager {
+            background: white;
+        }
+
+        .ui-jqgrid-bdiv {
+            height: 440px;
+            width: 1061px;
+        }
+
+        .ui-widget-content {
+            border: 1px solid white /*{borderColorContent}*/;
+            background: #ffffff /*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png) /*{bgImgUrlContent}*/ 50% /*{bgContentXPos}*/ 50% /*{bgContentYPos}*/ repeat-x /*{bgContentRepeat}*/;
+            color: #222222 /*{fcContent}*/;
+            
+        }
+
+        .ui-jqgrid tr.jqgrow td {
+            font-weight: normal;
+            overflow: hidden;
+            white-space: pre;
+            height: 51px;
+            padding: 0 2px 0 2px;
+            border-bottom-width: 1px;
+            border-bottom-color: inherit;
+            border-bottom-style: solid
+        }
+
+        .ui-jqgrid tr.ui-row-ltr td {
+            text-align: left;
+            border-right-width: 1px;
+            border-right-color: inherit;
+            border-right-style: solid
+        }
+
+        #JQGrid_ProjectTitle {
+            padding-left: 40px;
+            border: none;
+        }
+
+        #jqgh_JQGrid_DesiredDate {
+            padding-left: 10px;
+            border: none;
+        }
+
+        .ui-jqgrid .ui-jqgrid-bdiv {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            height: 420px;
+        }
+
+        .JQGrid_DesiredDate {
+            border: none;
+        }
+
+        .JQGrid_BusinessObjective {
+            border: none;
+        }
+
+        .JQGrid_CostCenter {
+            border: none;
+        }
+
+        .JQGrid_Status {
+            border: none;
+        }
+
+        .ui-state-default ui-th-column ui-th-ltr {
+            border: none;
+        }
+
+        #JQGrid_BusinessObjective {
+            border: none;
+        }
+
+        .ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+            border: none;
+        }
+
+        .ui-jqgrid-bdiv {
+            height: 810px;
+        }
+
+        #gview_JQGrid {
+            height: 420px;
+        }
+                .dropbtn {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 16px;
+                    font-size: 16px;
+                    border: none;
+                }
+
+                .dropdown {
+                    position: relative;
+                    display: inline-block;
+                }
+
+        .dropdown-content {
+            display:none;
+            border-radius: 5px;
+            position: absolute;
+            background-color: #f3f3f3;
+            min-width: 30px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                border-radius:5px;
+                color: black;
+                padding: 5px 10px;
+                text-decoration: none;
+                display: block;
+                
+            }
+
+                            .dropdown-content a:hover {
+                                background-color: lightseagreen;
+                            }
+
+                    .dropdown:hover .dropdown-content {
+                        display: block;
+                    }
+
+                    .dropdown:hover .dropbtn {
+                        background-color: #3e8e41;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#JQGrid').jqGrid('setGridWidth', '700');
+
+            $(function () {
+                debugger;
+                $("#JQGrid").jqGrid
+                ({
+                    url: "/Home/GetHomeGrid",
+                    datatype: 'json',
+                    mtype: 'Get',
+                    colNames: ['Project Title', 'Desired Date', 'Business Objective',
+                                'Cost Center', 'Status'],
+                    colModel: [
+                    { name: "ProjectTitle", width: 150 },
+                    { name: "DesiredDate", width: 135 },
+                    { name: "BusinessObjective", width: 150 },
+                    { name: "CostCenter", width: 200 },
+                    { name: "Status", width: 150 },
+                    ],
+                    height: '310px',
+                    //width: 700,
+                    rowNum: 10,
+                    //altRows: true,
+                    pager: jQuery('#JQGridPager'),
+                    rowList: [10, 20, 30, 40],
+                    viewrecords: true,
+                    caption: '',
+                    emptyrecords: 'No records',
+                    jsonReader:
+                    {
+                        root: "rows",
+                        page: "page",
+                        total: "total",
+                        records: "records",
+                        repeatitems: false,
+                        Id: "0"
+                    },
+                    autowidth: true,
+                    shrinkToFit: false,
+                });
+
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" src="~/Images/logo.jpg" alt="" />
+
+                </a>
+               
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <img src="~/Images/plus.png" style="width:30px" data-toggle="test" data-placement="top" title="New Marketing Service Request" onclick="location.href='@Url.Action("servicedetail", "Servicedetails")'" />
+                            <div class="dropdown">
+                                <a class="nav-link" href="#">
+                                    @{
+                                        if (Session["UserName"] != null)
+                                        {
+                                            @Session["UserName"]
+                                        }
+                                    } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                    <img class="profile rounded-circle"
+                                         src="~/Images/profile.png"
+                                         alt="" />
+                                </a>
+                                <div class="dropdown-content">
+                                    @Html.ActionLink("Logout", "LogOut", "Login")
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+        <div class="table-wrapper">
+            <table id="JQGrid"></table>
+        </div>
+        <div id="JQGridPager"></div>
+
+                    }

@@ -1,0 +1,192 @@
+﻿@model MarketingServiceRequests.Models.ServiceProduction
+
+@{
+    ViewBag.Title = "Production";
+}
+
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input:submit').attr('disabled', true);
+            $('input:file').change(function () {
+                if ($(this).val()) {
+                    $('input:submit').removeAttr('disabled');
+                }
+            });
+                $("#VideoProduction_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#VideoProduction_input:hidden").trigger('click');
+                });
+                $('#VideoProduction_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#VideoProduction_span').html(FileName);
+                });
+                $("#PhotographyCoverage_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#PhotographyCoverage_input:hidden").trigger('click');
+
+                });
+                $('#PhotographyCoverage_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#PhotographyCoverage_span').html(FileName);
+                });
+                $("#VideographyCoveragee_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#VideographyCoveragee_input:hidden").trigger('click');
+
+                });
+                $('#VideographyCoveragee_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#VideographyCoveragee_span').html(FileName);
+                });
+                $("#PhotographySessions_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#PhotographySessions_input:hidden").trigger('click');
+
+                });
+                $('#PhotographySessions_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#PhotographySessions_span').html(FileName);
+                });
+                $("#RecordingSession_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#RecordingSession_input:hidden").trigger('click');
+
+                });
+                $('#RecordingSession_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#RecordingSession_span').html(FileName);
+                });
+                $("#PhotographyPermission_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#PhotographyPermission_input:hidden").trigger('click');
+
+                });
+                $('#PhotographyPermission_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#PhotographyPermission_span').html(FileName);
+                });
+
+                $('input[type="file"]').change(function () {
+
+                    //because this is single file upload I use only first index
+                    var f = this.files[0]
+
+                    //33554432 32 mb 32*1024*1024
+                    if (f.size > 33554432)
+                    {
+                        alert("Allowed file size exceeded. (Max. 32 MB)")
+                        this.value = null;
+                        var InputId = $(this).attr("id");
+                        var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                        $(SpanId).html('');
+                        $('input:submit').attr('disabled', true);
+                    }
+                });
+
+            });
+    </script>
+</head>
+
+@using (Html.BeginForm("Production", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>
+                Section Two / Service Details / Production
+            </h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Video Production</h4>
+                <h5>(High, Medium, or Normal Production) </h5>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="VideoProduction" id="VideoProduction_input" />
+                <a href="" id="VideoProduction_link" style="padding:0 10px 0 10px;"> (Attach a Brief) </a>
+                <span id="VideoProduction_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Photography Coverage</h4>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="PhotographyCoverage" id="PhotographyCoverage_input" />
+                <a href="" id="PhotographyCoverage_link" style="padding:0 10px 0 10px;"> (Attach a Brief) </a>
+                <span id="PhotographyCoverage_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Videography Coverage</h4>
+                <h5>With a live streaming (if requested) </h5>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="VideographyCoveragee" id="VideographyCoveragee_input" />
+                <a href="" id="VideographyCoveragee_link" style="padding:0 10px 0 10px;"> (Attach a Brief) </a>
+                <span id="VideographyCoveragee_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Photography Sessions </h4>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="PhotographySessions" id="PhotographySessions_input" />
+                <a href="" id="PhotographySessions_link" style="padding:0 10px 0 10px;"> (Attach a Brief) </a>
+                <span id="PhotographySessions_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Recording Session</h4>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="RecordingSession" id="RecordingSession_input" />
+                <a href="" id="RecordingSession_link" style="padding:0 10px 0 10px;"> (Attach a Brief) </a>
+                <span id="RecordingSession_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Photography / Videography Permission</h4>
+            </div>
+            <div class="col-md-6 pull-right" style="padding-top:8px">
+                <input type="file" name="PhotographyPermission" id="PhotographyPermission_input" />
+                <a href="" id="PhotographyPermission_link" style="padding:0 10px 0 10px;"> (Attach the company letter, script and scenario) </a>
+                <span id="PhotographyPermission_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+
+

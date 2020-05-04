@@ -1,0 +1,114 @@
+﻿@model MarketingServiceRequests.Models.ServiceSocialMedia
+
+@{
+    ViewBag.Title = "SocialMedia";
+}
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input:submit').attr('disabled', true);
+            $('input:file').change(function () {
+                if ($(this).val()) {
+                    $('input:submit').removeAttr('disabled');
+                }
+            });
+                $("#SocialMediaContentdevelopment_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#SocialMediaContentdevelopment_input:hidden").trigger('click');
+
+                });
+                $('#SocialMediaContentdevelopment_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#SocialMediaContentdevelopment_span').html(FileName);
+                });
+                $("#MediaCoverage_link").on('click', function (e) {
+                    e.preventDefault();
+                    $("#MediaCoverage_input:hidden").trigger('click');
+
+                });
+                $('#MediaCoverage_input').change(function (e) {
+                    var FileName = e.target.files[0].name;
+                    $('#MediaCoverage_span').html(FileName);
+                });
+
+
+                $('input[type="file"]').change(function () {
+
+                    //because this is single file upload I use only first index
+                    var f = this.files[0]
+
+                    //33554432 32 mb 32*1024*1024
+                    if (f.size > 33554432)
+                    {
+                        alert("Allowed file size exceeded. (Max. 32 MB)")
+                        this.value = null;
+                        var InputId = $(this).attr("id");
+                        var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                        $(SpanId).html('');
+                        $('input:submit').attr('disabled', true);
+                    }
+                });
+
+
+            });
+    </script>
+</head>
+
+@using (Html.BeginForm("SocialMedia", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>
+                Section Two / Service Details / Social Media
+            </h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <h4 class="col-md-8">Social Media Content development and design</h4>
+            <div class="col-md-4 pull-right" style="padding-top:8px">
+                <input type="file" name="SocialMediaContentdevelopment" id="SocialMediaContentdevelopment_input" />
+                <a href="" id="SocialMediaContentdevelopment_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                <span id="SocialMediaContentdevelopment_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-8">
+                <h4>Social Media Coverage</h4>
+                <h5>(for events, symposiums, conferences, workshops etc..)</h5>
+            </div>
+            <div class="col-md-4 pull-right" style="padding-top:8px">
+                <input type="file" name="MediaCoverage" id="MediaCoverage_input" />
+                <a href="" id="MediaCoverage_link" style="padding:0 10px 0 10px"> (Attach a Brief) </a>
+                <span id="MediaCoverage_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+

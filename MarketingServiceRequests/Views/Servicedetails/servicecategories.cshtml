@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "ServiceCategories";
+}
+<head>
+    <style>
+
+        .logo {
+            height: 60px;
+            width: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card {
+            margin: 0px 50px 10px 50px;
+        }
+
+        .navbar {
+            background-color: #fff !important;
+            margin: 0px;
+        }
+
+        .profile {
+            height: 40px;
+            width: 40px;
+        }
+
+        .nav-link {
+            border-left: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .fa {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .breadcrumb {
+            padding-left: 51px !important;
+            margin: 0px;
+            border: 1px solid rgba(70, 64, 64, 0.199);
+        }
+
+        .breadcrumb-item {
+            color: rgba(0, 0, 0, 1) !important;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-size: 15px;
+        }
+
+        .wrapper {
+            margin: 10px 50px 10px 40px;
+            display: flex;
+            background-color: #e9ecef;
+            font-size: 12px;
+        }
+
+        .step {
+            color: black;
+            font-weight: bold;
+            padding: 4%;
+            text-align: center;
+            object-fit: cover;
+        }
+
+        #step1 {
+            color: #fff;
+        }
+        #pointer0 {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            background: #385f92;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        #pointer0:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #385f92;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+        border {
+            border-style: groove;
+        }
+
+        section {
+            background-color: white;
+            margin: 0px 50px 10px 50px;
+            padding: 0px;
+            font-size: 15px;
+        }
+
+
+        /* Style the list inside the menu */
+        article {
+            margin: 10px;
+            padding: 10px;
+            background-color: #F6FCFC;
+        }
+
+        /* Clear floats after the columns */
+        section:before {
+            content: "";
+            display: table;
+            margin: 10px;
+            clear: both;
+        }
+
+        section:after {
+            content: "";
+            display: table;
+            margin: 10px;
+            clear: both;
+        }
+        .second-col-checkboxes {
+            position: relative;
+            padding-left: 0px;
+            margin-bottom: 0px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            border-radius: 5px;
+            position: absolute;
+            background-color: #f3f3f3;
+            min-width: 30px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                border-radius: 5px;
+                color: black;
+                padding: 5px 10px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: lightseagreen;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="~/Images/logo.jpg" alt="" />
+
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link" href="#">
+                                @{
+                                    if (Session["UserName"] != null)
+                                    {
+                                        @Session["UserName"]
+                                    }
+                                } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                <img class="profile rounded-circle"
+                                     src="~/Images/profile.png"
+                                     alt="" />
+                            </a>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Logout", "LogOut", "Login")
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <div class="breadcrumb">
+            <div class="breadcrumb-item"><a href="#">Home</a></div>
+            <span class="fa fas fa-chevron-circle-right mt-1 mr-3 ml-3"></span>
+            <div class="breadcrumb-item active" aria-current="page">New Services</div>
+        </div>
+    </div>
+    <div class="border">
+        <div class="wrapper">
+
+            <div id="pointer0">
+                <p id="step1" class="step">Service Details</p>
+            </div>
+
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <section>
+            <article>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 15px 15px 0px"> Copy Writing</span>
+                    <a href="@Url.Action("copywriting", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 60px 15px 0px"> Designs</span>
+                    <a href="@Url.Action("Designs", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 70px 15px 0px"> Events</span>
+                    <a href="@Url.Action("Events", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 15px 15px 0px"> Social Media </span>
+                    
+                    <a href="@Url.Action("SocialMedia", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 15px 15px 0px"> IMC Website</span>
+                    
+                    <a href="@Url.Action("IMCWebsite", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+                <div class="form-check second-col-checkboxes">
+                    <span style="font-size: 20px;padding:0 30px 15px 0px"> Production</span>
+                   
+                    <a href="@Url.Action("Production", "Services")">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="font-size: 20px;"></span>
+                    </a>
+                </div>
+            </article>
+        </section>
+       
+    </div>
+
+}
+

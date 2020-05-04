@@ -1,0 +1,265 @@
+﻿@model MarketingServiceRequests.Models.ServiceEvents
+
+@{
+    ViewBag.Title = "Events";
+}
+
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input[type=submit]').prop("disabled", true);
+
+            var Chkboxes1 = $('.chkbox');
+            var Chkboxes2 = $('.eventchkbox');
+
+            var DivIMC = $('#DivIMC');
+            DivIMC.hide();
+            Chkboxes1.on('change', function () {
+                Chkboxes1.not(this).prop('checked', false);
+                if (Chkboxes1.filter(':checked').length > 0) {
+                    DivIMC.show();
+                }
+                else {
+                    DivIMC.hide();
+                    $('input[type="file"]').val('');
+                    $('#IMC_span').html('');
+                    $('input[type=submit]').prop("disabled", true);
+                }
+            });
+            Chkboxes2.on('change', function () {
+                Chkboxes2.not(this).prop('checked', false);
+                if (Chkboxes2.filter(':checked').length > 0) {
+                    if (!Chkboxes1.filter(':checked').length + !Chkboxes2.filter(':checked').length == 0) {
+                    
+                        if ($('#IMC_input')[0].files.length != 0) {
+                            $('input[type=submit]').prop('disabled', false);
+                        }
+                        else { $('input[type=submit]').prop('disabled', true); }
+                   
+                    
+                    }
+                }else { $('input[type=submit]').prop('disabled', true); }
+            });
+            $("#IMC_link").on('click', function (e) {
+                e.preventDefault();
+                $("#IMC_input:hidden").trigger('click');
+
+            });
+            //$('input[type="checkbox"]').on('change', function () {
+            //    //$('input[type=submit]').prop('disabled', !Chkboxes1.filter(':checked').length + !Chkboxes2.filter(':checked').length);
+            //    ////chkboxes.not(this).prop('checked', false);
+                
+            //}).trigger('change');
+
+            $('#IMC_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#IMC_span').html(FileName);
+            });
+
+
+            
+            $('input[type="file"]').change(function () {
+
+                //because this is single file upload I use only first index
+                var f = this.files[0]
+
+                //33554432 32 mb 32*1024*1024
+                if (f.size > 33554432)
+                {
+                    alert("Allowed file size exceeded. (Max. 32 MB)")
+                    this.value = null;
+                    var InputId = $(this).attr("id");
+                    var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                    $(SpanId).html('');
+                   // $('input:submit').attr('disabled', true);
+                }
+
+                if (!Chkboxes1.filter(':checked').length + !Chkboxes2.filter(':checked').length == 0) {
+                    
+                    if ($('#IMC_input')[0].files.length != 0) {
+                            $('input[type=submit]').prop('disabled', false);
+                        }
+                        else { $('input[type=submit]').prop('disabled', true); }
+                   
+                    
+                }
+
+
+
+            });
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm("Events", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>
+                Section Two / Service Details / Events
+            </h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-3" style="float: left;">
+                @Html.Label("Location", htmlAttributes: new { @class = "control-label " })
+            </div>
+            <div class="col-md-5">
+                <div style="padding:0px 10px 0 10px">
+                    @Html.CheckBox("IMCMainlobby", false, new { @class = "chkbox", })<span style="padding:0 15px 0 0px">IMC Main lobby </span>
+
+                    @Html.CheckBox("IMCAuditorium", false, new { @class = "chkbox", })<span style="padding:0 15px 0 0px"> IMC Auditorium 	 </span>
+                </div>
+            </div>
+            <div class="col-md-4" style="text-align:left">
+                <div id="DivIMC" style="padding:0px 10px 0 10px">
+                    <input type="file" name="IMC_inputfile" id="IMC_input" />
+                    <a href="" id="IMC_link" style="padding:0 10px 0 10px"> (Attach name and a brief about the event) </a>
+                    <span id="IMC_span"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3" style="float: left;">
+                @*@Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label " })*@
+                @Html.Label("Duration")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3" style="float: left;">
+                @*@Html.LabelFor(model => model.Expectedparticipant, htmlAttributes: new { @class = "control-label " })*@
+                @Html.Label("Expected number of participants")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Expectedparticipant, new { htmlAttributes = new { @class = "form-control" } })
+               @* @Html.ValidationMessageFor(model => model.Expectedparticipant, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <h4>Events Elements: </h4>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("AudiovisualSystem", false, new { @class = "eventchkbox", })<span>Audio visual System (LED Screen / Sound System)	 </span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("Fulleventcoverage", false, new { @class = "eventchkbox", })<span>Full event	coverage: Photography	+ Videography </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("Stage", false, new { @class = "eventchkbox", })<span>Stage / Podium / AddiBonal	couches	and	tables	 </span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("ActivityItems", false, new { @class = "eventchkbox", })<span>Activity Items (CompeBBon / Show / Entertaining activities)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("PopupBanners", false, new { @class = "eventchkbox", })<span>Popup Banners</span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("SocialMedia", false, new { @class = "eventchkbox", })<span>Social Media	(Live Streaming)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("Flowers", false, new { @class = "eventchkbox", })<span>Flowers + Balloons +	Chocolate</span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("SocialMediaconverge", false, new { @class = "eventchkbox", })<span>Social Media	converge </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("Water", false, new { @class = "eventchkbox", })<span>Water + Coﬀee + Tea</span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("IMCWebsiteBanner", false, new { @class = "eventchkbox", })<span>IMC	Website	Banner</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.CheckBox("Printed", false, new { @class = "eventchkbox", })<span>Printed	Materials(Booklets / InvitaBon	Cards /	Flyers)	 </span>
+            </div>
+            <div class="col-md-6">
+                @Html.CheckBox("IMCWebsiteAnnouncement", false, new { @class = "eventchkbox", })<span>IMC Website Announcement </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("Lighting", false, new { @class = "eventchkbox", })<span>Lighting(Inside	/ Outside)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("Giveaways", false, new { @class = "eventchkbox", })<span>Giveaways</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("VIPgifts", false, new { @class = "eventchkbox", })<span>VIP	Gifts /	Souvenirs</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("VIPLunch", false, new { @class = "eventchkbox", })<span>VIP	Lunch /	Dinner</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("PhotoBooth", false, new { @class = "eventchkbox", })<span>Photo	Booth</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("DecorativeItems", false, new { @class = "eventchkbox", })<span>Decorative Items</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("SMSInvitation", false, new { @class = "eventchkbox", })<span>SMS Invitation</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("EmployeesInvitationEmails", false, new { @class = "eventchkbox", })<span>Employees Invitation Emails</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+
+

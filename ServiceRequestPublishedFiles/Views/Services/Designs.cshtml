@@ -1,0 +1,140 @@
+﻿@model MarketingServiceRequests.Models.ServiceDesigns
+
+@{
+    ViewBag.Title = "Designs";
+}
+
+<head>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input[type=submit]').prop("disabled", true);
+            var chkboxes = $('.chkbox');
+            var DivDesignAttach = $('#DivDesignAttach');
+            chkboxes.on('change', function () {
+               // $('input[type=submit]').prop('disabled', !chkboxes.filter(':checked').length);
+                chkboxes.not(this).prop('checked', false);                
+                if (chkboxes.filter(':checked').length > 0) {
+                    DivDesignAttach.show();
+                }
+                else {
+                    DivDesignAttach.hide();
+                    $('input[type="file"]').val('');
+                    $('#Design_span').html('');
+                    $('input[type=submit]').prop('disabled',true);
+                }
+            }).trigger('change');
+            $("#Design_link").on('click', function (e) {
+                e.preventDefault();
+                $("#Design_input:hidden").trigger('click');
+            });
+            $('#Design_input').change(function (e) {
+                var FileName = e.target.files[0].name;
+                $('#Design_span').html(FileName);
+            });
+
+            //$('input[type="checkbox"]').on('change', function () {
+            //    $('input[type=submit]').prop('disabled', !chkboxes.filter(':checked').length);
+            //    //chkboxes.not(this).prop('checked', false);
+            //}).trigger('change');
+
+            var chkboxes1 = $('.chkbox');
+
+            $('input[type="file"]').change(function () {
+
+                //because this is single file upload I use only first index
+                var f = this.files[0]
+
+                //33554432 32 mb 32*1024*1024
+                if (f.size > 33554432)
+                {
+                    alert("Allowed file size exceeded. (Max. 32 MB)")
+                    this.value = null;
+                    var InputId = $(this).attr("id");
+                    var SpanId='#'+InputId.substring(0, InputId.length-5)+'span';
+                    $(SpanId).html('');
+                    $('input:submit').attr('disabled', true);
+                }
+
+                if (!chkboxes1.filter(':checked').length == 0) {
+                    
+                        if ($('#Design_input')[0].files.length != 0) {
+                            $('input[type=submit]').prop('disabled', false);
+                        }
+                        else { $('input[type=submit]').prop('disabled', true); }
+                   
+                    
+                }
+
+            });
+
+        });
+    </script>
+</head>
+
+@using (Html.BeginForm("Designs", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div style="background-color:#015FB9;margin:10px 0px 0px 0px;padding:20px 10px 20px 10px;color:white;font-weight:bold">
+            <h2>Section Two / Service Details / Designs</h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4" style="padding:0px 0px 0px 20px;margin:0px 0px 0px 0px">
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <h4> Welcome : @Session["UserName"] </h4>
+                    }
+                }
+            </div>
+            <div class="col-md-offset-7 col-md-1 pull-right" style="padding:7px 5px 0px 0px;">
+                @Html.ActionLink("Logout", "LogOut", "Login")
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12">
+                <h3>Type of Design</h3>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.CheckBox("Booklet", false, new { @class = "chkbox", })<span style="padding:0 15px 0 0px">Booklet </span>
+                @Html.CheckBox("Flyer", false, new { @class = "chkbox" }) <span style="padding:0 15px 0 0px"> Flyer </span>
+                @Html.CheckBox("Brochure", false, new { @class = "chkbox" }) <span style="padding:0 15px 0 0px"> Brochure </span>
+                @Html.CheckBox("InvitationCard", false, new { @class = "chkbox" })<span style="padding:0 15px 0 0px">Invitation Card</span>
+                @Html.CheckBox("PopupBanner", false, new { @class = "chkbox" }) <span style="padding:0 15px 0 0px"> Popup Banner </span>
+                @Html.CheckBox("Poster", false, new { @class = "chkbox" })<span>Poster</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div id="DivDesignAttach" class="col-md-12">
+                <input type="file" name="Design_inputfile" id="Design_input" />
+                <a href="" id="Design_link" style="padding:0 10px 0 10px;">  (Attach Content or any required elements)</a>
+                <span id="Design_span"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <p>
+                    Note:	Afer	compleBng	your	request,	the	high	resoluBon	design	will	be	shred	with	you	and	you	have	to	print	it	through	Purchasing	department
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="button" value="Back" class="btn" style="background-color:#015FB9;color:white;" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+            </div>
+            <div class="col-md-offset-8 col-md-2 ">
+                <input type="submit" id="btnsubmit" value="Next" class="btn pull-right" style="background-color:#015FB9;color:white;" />
+            </div>
+        </div>
+    </div>
+}
+
+
