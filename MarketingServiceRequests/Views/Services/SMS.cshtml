@@ -1,14 +1,12 @@
-﻿@model MarketingServiceRequests.Models.ServiceDesigns
+﻿@model MarketingServiceRequests.Models.SMS
 
-@{
-    ViewBag.Title = "Designs";
-   
-}
-
+    @{
+        ViewBag.Title = "SMS";
+    }
     <head>
-    
         <style>
 
+            /* Manish CSS Starts */
             .logo {
                 height: 60px;
                 width: 70px;
@@ -46,7 +44,7 @@
 
             .breadcrumb {
                 padding-left: 51px !important;
-                margin:0px;
+                margin: 0px;
                 border: 1px solid rgba(70, 64, 64, 0.199);
             }
 
@@ -56,14 +54,14 @@
 
             body {
                 background-color: #e9ecef;
-                font-size:15px;
+                font-size: 15px;
             }
 
             .wrapper {
                 margin: 10px 50px 10px 40px;
                 display: flex;
                 background-color: #e9ecef;
-                font-size:12px;
+                font-size: 12px;
             }
 
             .step {
@@ -81,6 +79,7 @@
             #step2 {
                 color: rgba(70, 64, 64, 0.4);
             }
+
             #pointer0 {
                 width: 100px;
                 height: 30px;
@@ -105,8 +104,9 @@
                 position: relative;
                 background: #fff;
                 margin-left: 10px;
-                text-align:center;
+                text-align: center;
             }
+
             #pointer0:before {
                 content: "";
                 position: absolute;
@@ -118,6 +118,7 @@
                 border-top: 15px solid transparent;
                 border-bottom: 15px solid transparent;
             }
+
             #pointer1:before {
                 content: "";
                 position: absolute;
@@ -129,6 +130,7 @@
                 border-top: 15px solid transparent;
                 border-bottom: 15px solid transparent;
             }
+
             #pointer1:after {
                 content: "";
                 position: absolute;
@@ -191,11 +193,12 @@
                     background-color: #F6FCFC;
                     color: black;
                 }
+
             border {
                 border-style: groove;
             }
+
             section {
-                border-style: groove;
                 background-color: white;
                 margin: 0px 50px 10px 50px;
                 padding: 0px;
@@ -261,7 +264,6 @@
                 height: 23px;
                 width: 23px;
                 border: 1px solid white;
-
             }
 
                 input[type="checkbox"]:checked {
@@ -290,21 +292,25 @@
                 }
 
 
+            .second-col-checkboxes-label {
+                margin: 5px 10px 0px 10px;
+            }
 
             .second-col-checkboxes {
                 position: relative;
                 padding-left: 0px;
-                margin-bottom: 0px;
+                margin-bottom: 10px;
                 cursor: pointer;
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
             }
-
+            /* Manish CSS Endss */
             input[type="file"] {
                 display: none;
             }
+
             .dropbtn {
                 background-color: #4CAF50;
                 color: white;
@@ -350,196 +356,118 @@
         </style>
         <script>
             $(document).ready(function () {
-                $('input[type=submit]').prop("disabled", false);
+                $('input:submit').attr('disabled', false);
 
-
-                $("#Booklet_link").on('click', function (e) {
-                    e.preventDefault();
-                    $("#Booklet_input:hidden").trigger('click');
-                });
-
-                $('#Booklet_input').change(function (e) {
-                    var FileName = e.target.files[0].name;
-                    $('#Booklet_span').html(FileName);
-                });
-
-
-                $("#Flyer_link").on('click', function (e) {
-                    debugger;
-                    e.preventDefault();
-                    $("#Flyer_input:hidden").trigger('click');
-                });
-
-
-                $('#Flyer_input').change(function (e) {
-                    var FileName = e.target.files[0].name;
-                    $('#Flyer_span').html(FileName);
-                });
-
-
-
-
-
-                $("#Brochure_link").on('click', function (e) {
-                    e.preventDefault();
-                    $("#Brochure_input:hidden").trigger('click');
-                });
-
-                $("#InvitationCard_link").on('click', function (e) {
-                    e.preventDefault();
-                    $("#InvitationCard_input:hidden").trigger('click');
-                });
-
-                $("#PopupBanner_link").on('click', function (e) {
-                    e.preventDefault();
-                    $("#PopupBanner_input:hidden").trigger('click');
-                });
-                $("#Poster_link").on('click', function (e) {
-                    e.preventDefault();
-                    $("#Poster_input:hidden").trigger('click');
-                });
-
-
-            });
-        </script>
+            });</script>
     </head>
 
-@using (Html.BeginForm("Designs", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img class="logo" src="~/Images/logo.jpg" alt="" />
+    @using (Html.BeginForm("SMS", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" src="~/Images/logo.jpg" alt="" />
 
-            </a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link" href="#">
-                                @{
-                                    if (Session["UserName"] != null)
-                                    {
-                                        @Session["UserName"]
-                                    }
-                                } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
-                                <img class="profile rounded-circle"
-                                     src="~/Images/profile.png"
-                                     alt="" />
-                            </a>
-                            <div class="dropdown-content">
-                                @Html.ActionLink("Logout", "LogOut", "Login")
+                </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link" href="#">
+                                    @{
+                                        if (Session["UserName"] != null)
+                                        {
+                                            @Session["UserName"]
+                                        }
+                                    } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                    <img class="profile rounded-circle"
+                                         src="~/Images/profile.png"
+                                         alt="" />
+                                </a>
+                                <div class="dropdown-content">
+                                    @Html.ActionLink("Logout", "LogOut", "Login")
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div>
+            <div class="breadcrumb">
+                <div class="breadcrumb-item"><a href='@Url.Action("HomeGrid", "Home")'>Home</a></div>
+                <span class="fa fas fa-chevron-circle-right mt-1 mr-3 ml-3"></span>
+                <div class="breadcrumb-item active" aria-current="page">New Services</div>
+            </div>
+        </div>
+        <div class="border">
+            <div class="wrapper">
+
+                <div id="pointer0">
+                    <p id="step1" class="step">Service Detail</p>
+                </div>
+
+                <div id="pointer1">
+                    <p id="step1" class="step">SMS</p>
+                </div>
+
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <section>
+                <nav1>
+                    <ul>
+                        <li><a href='@Url.Action("copywriting", "Services")'>Copy Writing</a></li>
+                        <li><a href='@Url.Action("Designs", "Services")'>Designs</a></li>
+                        <li><a href='@Url.Action("Events", "Services")'>Events</a></li>
+                        <li><a href='@Url.Action("SocialMedia", "Services")'>Social Media</a></li>
+                        <li><a href='@Url.Action("IMCWebsite", "Services")'>IMC Website</a></li>
+                        <li><a href='@Url.Action("Production", "Services")'>Production</a></li>
+                        <li class="active"><a href='@Url.Action("SMS", "Services")'>SMS</a></li>
+                        <li><a href='@Url.Action("Email", "Services")'>Email</a></li>
+                    </ul>
+                </nav1>
+                <article>
+                    <div>
+                        <div>
+                            @Html.Label("SMS Text Content")
+                        </div>
+                        <div class="input-group mb-3">
+                            @Html.EditorFor(model => model.SMSTextContent, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SMSTextContent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            @Html.Label("Email Type")
+                        </div>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBox("EnglishSMS", true)<span style="padding:0 10px 0 0px">English</span>
+                                @Html.CheckBox("ArabicSMS", true) <span style="padding:0 10px 0 0px">Arabic</span>
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+
+                    <div>
+                        <div>
+                            @Html.Label("Target Audience Description")
+                        </div>
+                        <div class="input-group mb-3">
+                            @Html.TextAreaFor(model => model.TargetAudienceDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TargetAudienceDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <div class="card">
+                <div class="card-body">
+                    <input type="submit" id="btnsubmit" value="Next" class="btn" />
+                    <input type="button" value="Back" class="btn" onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
+                </div>
             </div>
         </div>
-    </nav>
-
-    <div>
-        <div class="breadcrumb">
-            <div class="breadcrumb-item"><a href='@Url.Action("HomeGrid", "Home")'>Home</a></div>
-            <span class="fa fas fa-chevron-circle-right mt-1 mr-3 ml-3"></span>
-            <div class="breadcrumb-item active" aria-current="page">New Services</div>
-        </div>
-    </div>
-    <div class="border">
-        <div class="wrapper">
-
-            <div id="pointer0">
-                <p id="step1" class="step">Service Detail</p>
-            </div>
-           
-            <div id="pointer1">
-                <p id="step1" class="step">Design</p>
-            </div>
-            
-        </div>
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <section>
-        <nav1>
-            <ul>
-                <li><a href='@Url.Action("copywriting", "Services")'>Copy Writing</a></li>
-                <li class="active"><a href='@Url.Action("Designs", "Services")'>Designs</a></li>
-                <li><a href='@Url.Action("Events", "Services")'>Events</a></li>
-                <li><a href='@Url.Action("SocialMedia", "Services")'>Social Media</a></li>
-                <li><a href='@Url.Action("IMCWebsite", "Services")'>IMC Website</a></li>
-                <li><a href='@Url.Action("Production", "Services")'>Production</a></li>
-                <li><a href='@Url.Action("SMS", "Services")'>SMS</a></li>
-                <li><a href='@Url.Action("Email", "Services")'>Email</a></li>
-            </ul>
-        </nav1>
-        <article>
-            <div>
-                @Html.Label("Type of Design")
-            </div>
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("Booklet", false)<span style="padding:0 15px 0px 0px">Booklet </span>
-                <input type="file" name="BookletFile" id="Booklet_input" />
-                <a href="" id="Booklet_link" style="padding:0 10px 0 10px"> (Attach Booklet) </a>
-                <span id="Booklet_span"></span>
-            </div>
-
-
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("Flyer", false) <span style="padding:0 15px 0 0px"> Flyer </span>
-                <input type="file" name="FlyerFile" id="Flyer_input" />
-                <a href="" id="Flyer_link" style="padding:0 10px 0 10px"> (Attach Flyer) </a>
-                <span id="Flyer_span"></span>
-            </div>
-
-
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("Brochure", false) <span style="padding:0 15px 0 0px"> Brochure </span>
-                <input type="file" name="BrochureFile" id="Brochure_input" />
-                <a href="" id="Brochure_link" style="padding:0 10px 0 10px"> (Attach Brochure) </a>
-                <span id="Brochure_span"></span>
-            </div>
-
-
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("InvitationCard", false) <span style="padding:0 15px 0 0px"> InvitationCard </span>
-                <input type="file" name="InvitationCardFile" id="InvitationCard_input" />
-                <a href="" id="InvitationCard_link" style="padding:0 10px 0 10px"> (Attach InvitationCard) </a>
-                <span id="InvitationCard_span"></span>
-            </div>
-
-
-
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("PopupBanner", false) <span style="padding:0 15px 0 0px"> PopupBanner </span>
-                <input type="file" name="PopupBannerFile" id="PopupBanner_input" />
-                <a href="" id="PopupBanner_link" style="padding:0 10px 0 10px"> (Attach PopupBanner) </a>
-                <span id="PopupBanner_span"></span>
-            </div>
-
-
-            <div class="form-check second-col-checkboxes">
-                @Html.CheckBox("Poster", false) <span style="padding:0 15px 0 0px"> Poster </span>
-                <input type="file" name="PosterFile" id="Poster_input" />
-                <a href="" id="Poster_link" style="padding:0 10px 0 10px"> (Attach Poster) </a>
-                <span id="Poster_span"></span>
-            </div>
-            <div>
-                <p>
-                    Note:	Afer	completing	your	request,	the	high	resolution	design	will	be	shred	with	you	and	you	have	to	print	it	through	Purchasing	department.
-                </p>
-            </div>
-        </article>
-    </section>
-    <div class="card">
-        <div class="card-body">
-            <input type="submit" id="btnsubmit" value="Next" class="btn" />
-            <input type="button" value="Back" class="btn"  onclick="location.href='@Url.Action("servicecategories", "Servicedetails")'" />
-        </div>
-    </div>
-
-   </div> 
-   
-}
-
+    }
 

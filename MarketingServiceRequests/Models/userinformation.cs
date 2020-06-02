@@ -175,4 +175,25 @@ namespace MarketingServiceRequests.Models
 
     }
 
+    public class SMS
+    {
+        
+        public string SMSTextContent { get; set; }
+        public bool EnglishSMS { get; set; }
+        public bool ArabicSMS { get; set; }
+        public string TargetAudienceDescription { get; set; }  
+    }
+
+    public class Email
+    {
+        public string EmailSubject { get; set; }
+        public string EmailTextContent { get; set; }
+        public bool InternalEmail { get; set; }
+        public bool ExternalEmail { get; set; }
+        public string TargetAudienceDescription { get; set; }
+
+    }
+
+
+
 }

@@ -155,7 +155,51 @@ namespace MarketingServiceRequests.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SMS()
+        {
+            if (Session["Id"] == null)
+                return RedirectToAction("servicedetail", "Servicedetails");
+            //return RedirectToAction("Index", "User");
 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SMS(SMS paramSMS)
+        {
+            if (ModelState != null && ModelState.IsValid)
+            {
+                objUtility.SMS(paramSMS, Session["Id"].ToString());
+                return RedirectToAction("Agreement", "ServiceAgreement");
+                //return RedirectToAction("servicecategories", "Servicedetails");
+                // return RedirectToAction("HomeGrid", "Home");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EMail()
+        {
+            if (Session["Id"] == null)
+                return RedirectToAction("servicedetail", "Servicedetails");
+            //return RedirectToAction("Index", "User");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EMail(Email paramEmail)
+        {
+            if (ModelState != null && ModelState.IsValid)
+            {
+                objUtility.Email(paramEmail, Session["Id"].ToString());
+                return RedirectToAction("Agreement", "ServiceAgreement");
+                //return RedirectToAction("servicecategories", "Servicedetails");
+                // return RedirectToAction("HomeGrid", "Home");
+            }
+            return View();
+        }
 
 
 

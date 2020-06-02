@@ -21,7 +21,6 @@
 
         .navbar {
             background-color: #fff !important;
-          
         }
 
         .nav-link {
@@ -37,6 +36,7 @@
             height: 40px;
             width: 40px;
         }
+
         .body {
             background: rgb(244,244,244);
             background-image: none;
@@ -49,7 +49,7 @@
 
         .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
             border: 1px solid white /*{borderColorDefault}*/;
-            background: blue /*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png) /*{bgImgUrlDefault}*/ 50% /*{bgDefaultXPos}*/ 50% /*{bgDefaultYPos}*/ repeat-x /*{bgDefaultRepeat}*/;
+            background: rgb(0,90,155) /*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png) /*{bgImgUrlDefault}*/ 50% /*{bgDefaultXPos}*/ 50% /*{bgDefaultYPos}*/ repeat-x;
             font-weight: normal /*{fwDefault}*/;
             color: white /*{fcDefault}*/;
         }
@@ -82,7 +82,6 @@
             border: 1px solid white /*{borderColorContent}*/;
             background: #ffffff /*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png) /*{bgImgUrlContent}*/ 50% /*{bgContentXPos}*/ 50% /*{bgContentYPos}*/ repeat-x /*{bgContentRepeat}*/;
             color: #222222 /*{fcContent}*/;
-            
         }
 
         .ui-jqgrid tr.jqgrow td {
@@ -137,6 +136,7 @@
             border: none;
         }
 
+        ui-state-default ui-jqgrid-hdiv
         .ui-state-default ui-th-column ui-th-ltr {
             border: none;
         }
@@ -156,21 +156,22 @@
         #gview_JQGrid {
             height: 420px;
         }
-                .dropbtn {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 16px;
-                    font-size: 16px;
-                    border: none;
-                }
 
-                .dropdown {
-                    position: relative;
-                    display: inline-block;
-                }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
         .dropdown-content {
-            display:none;
+            display: none;
             border-radius: 5px;
             position: absolute;
             background-color: #f3f3f3;
@@ -180,74 +181,107 @@
         }
 
             .dropdown-content a {
-                border-radius:5px;
+                border-radius: 5px;
                 color: black;
                 padding: 5px 10px;
                 text-decoration: none;
                 display: block;
-                
             }
 
-                            .dropdown-content a:hover {
-                                background-color: lightseagreen;
-                            }
+                .dropdown-content a:hover {
+                    background-color: lightseagreen;
+                }
 
-                    .dropdown:hover .dropdown-content {
-                        display: block;
-                    }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-                    .dropdown:hover .dropbtn {
-                        background-color: #3e8e41;
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            border-radius: 5px 5px 0 0;
+        }
+
+        ui-widget-content jqgrow ui-row-ltr ui-state-hover {
+            background: blue;
+            background-color: red;
+        }
+
+        table-wrapper {
+            width: 100%;
+        }
+
+        .ui-jqgrid-htable {
+            width: 100%;
+        }
+
+        .ui-jqgrid-labels {
+            width: 100%
+        }
+
+        ui-state-default ui-jqgrid-hdiv {
+            width: 100%;
+        }
+
+        .ui-widget-content jqgrow ui-row-ltr:hover {
+            background: blue;
+            background-color: red;
+        }
+
+        .ui-state-hover,
+        .ui-widget-content .ui-state-hover,
+        .ui-widget-header .ui-state-hover,
+        .ui-state-focus,
+        .ui-widget-content .ui-state-focus,
+        .ui-widget-header .ui-state-focus {
+            background: rgb(0,90,145);
+            color: #ffffff;
         }
     </style>
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
-            $('#JQGrid').jqGrid('setGridWidth', '700');
-
+            $('#JQGrid').jqGrid('setGridWidth', '1100');
             $(function () {
                 debugger;
                 $("#JQGrid").jqGrid
-                ({
-                    url: "/Home/GetHomeGrid",
-                    datatype: 'json',
-                    mtype: 'Get',
-                    colNames: ['Project Title', 'Desired Date', 'Business Objective',
-                                'Cost Center', 'Status'],
-                    colModel: [
-                    { name: "ProjectTitle", width: 150 },
-                    { name: "DesiredDate", width: 135 },
-                    { name: "BusinessObjective", width: 150 },
-                    { name: "CostCenter", width: 200 },
-                    { name: "Status", width: 150 },
-                    ],
-                    height: '310px',
-                    //width: 700,
-                    rowNum: 10,
-                    //altRows: true,
-                    pager: jQuery('#JQGridPager'),
-                    rowList: [10, 20, 30, 40],
-                    viewrecords: true,
-                    caption: '',
-                    emptyrecords: 'No records',
-                    jsonReader:
-                    {
-                        root: "rows",
-                        page: "page",
-                        total: "total",
-                        records: "records",
-                        repeatitems: false,
-                        Id: "0"
-                    },
-                    autowidth: true,
-                    shrinkToFit: false,
-                });
-
+                    ({
+                        url: "/Home/GetHomeGrid",
+                        datatype: 'json',
+                        mtype: 'Get',
+                        colNames: ['Project Title', 'Desired Date', 'Business Objective',
+                            'Cost Center', 'Status'],
+                        colModel: [
+                            { name: "ProjectTitle", width: 275 },
+                            { name: "DesiredDate", width: 220 },
+                            { name: "BusinessObjective", width: 165 },
+                            { name: "CostCenter", width: 275 },
+                            { name: "Status", width: 165 },
+                        ],
+                        height: '400px',
+                        //width: 700,
+                        rowNum: 10,
+                        //altRows: true,
+                        pager: jQuery('#JQGridPager'),
+                        rowList: [10, 20, 30, 40],
+                        viewrecords: true,
+                        caption: '',
+                        emptyrecords: 'No records',
+                        jsonReader:
+                        {
+                            root: "rows",
+                            page: "page",
+                            total: "total",
+                            records: "records",
+                            repeatitems: false,
+                            Id: "0"
+                        },
+                        autowidth: true,
+                        shrinkToFit: false,
+                    });
             });
-
-
-
-
         });
     </script>
 </head>
@@ -255,43 +289,43 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img class="logo" src="~/Images/logo.jpg" alt="" />
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="~/Images/logo.jpg" alt="" />
 
-                </a>
-               
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <img src="~/Images/plus.png" style="width:30px" data-toggle="test" data-placement="top" title="New Marketing Service Request" onclick="location.href='@Url.Action("servicedetail", "Servicedetails")'" />
-                            <div class="dropdown">
-                                <a class="nav-link" href="#">
-                                    @{
-                                        if (Session["UserName"] != null)
-                                        {
-                                            @Session["UserName"]
-                                        }
-                                    } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
-                                    <img class="profile rounded-circle"
-                                         src="~/Images/profile.png"
-                                         alt="" />
-                                </a>
-                                <div class="dropdown-content">
-                                    @Html.ActionLink("Logout", "LogOut", "Login")
-                                </div>
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <img src="~/Images/plus.png" style="width:30px" data-toggle="test" data-placement="top" title="New Marketing Service Request" onclick="location.href='@Url.Action("servicedetail", "Servicedetails")'" />
+                        <div class="dropdown">
+                            <a class="nav-link" href="#">
+                                @{
+                                    if (Session["UserName"] != null)
+                                    {
+                                        @Session["UserName"]
+                                    }
+                                } <span class="fa fas fa-angle-down ml-3 mt-3"></span>
+                                <img class="profile rounded-circle"
+                                     src="~/Images/profile.png"
+                                     alt="" />
+                            </a>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Logout", "LogOut", "Login")
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-       
-        <div class="table-wrapper">
-            <table id="JQGrid"></table>
         </div>
-        <div id="JQGridPager"></div>
+    </nav>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    }
+    <div class="table-wrapper">
+        <table id="JQGrid"></table>
+    </div>
+    <div id="JQGridPager"></div>
+
+}

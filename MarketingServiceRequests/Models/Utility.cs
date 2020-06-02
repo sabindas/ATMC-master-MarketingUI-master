@@ -196,6 +196,11 @@ namespace MarketingServiceRequests.Controllers
         public void CopyWriting(ServiceCopyWriting paramservicecopywriting, string Id)
         {
             Guid UserId = ValidateUser();
+            Entity enMSR = new Entity("campaign");
+            enMSR.Id = new Guid(Id);
+            enMSR["imc_iscontentverificationdocumentattached"] = false;
+            enMSR["imc_istextdevelopingdocumentattached"] = false;
+            enMSR["imc_istranslationdocumentattached"] = false;
             if (UserId != null)
             {
                 byte[] bytes;
@@ -206,6 +211,7 @@ namespace MarketingServiceRequests.Controllers
                         bytes = br.ReadBytes(paramservicecopywriting.ContentVerification.ContentLength);
                     }
                     CreateNotes("Content Verification", paramservicecopywriting.ContentVerification.FileName, bytes, Id);
+                    enMSR["imc_iscontentverificationdocumentattached"] = true;
                 }
                 if (paramservicecopywriting.TextDeveloping != null)
                 {
@@ -214,6 +220,7 @@ namespace MarketingServiceRequests.Controllers
                         bytes = br.ReadBytes(paramservicecopywriting.TextDeveloping.ContentLength);
                     }
                     CreateNotes("Text Developing", paramservicecopywriting.TextDeveloping.FileName, bytes, Id);
+                    enMSR["imc_istextdevelopingdocumentattached"] = true;
                 }
                 if (paramservicecopywriting.Translation != null)
                 {
@@ -222,7 +229,12 @@ namespace MarketingServiceRequests.Controllers
                         bytes = br.ReadBytes(paramservicecopywriting.Translation.ContentLength);
                     }
                     CreateNotes("Translation", paramservicecopywriting.Translation.FileName, bytes, Id);
+                    enMSR["imc_istranslationdocumentattached"] = true;
                 }
+
+
+
+                service.Update(enMSR);
             }
         }
 
@@ -542,6 +554,53 @@ namespace MarketingServiceRequests.Controllers
                     CreateNotes("Videography / Photography Permission", paramServiceProduction.PhotographyPermission.FileName, bytes, Id);
                 }
             }
+        }
+
+        public void Email(Email paramEmail, string Id)
+        {
+
+            Guid UserId = ValidateUser();
+            if (UserId != null)
+            {
+
+                Entity enMSR = new Entity("campaign");
+                enMSR.Id = new Guid(Id);
+                enMSR["imc_emailsubject"] = paramEmail.EmailSubject;
+                enMSR["imc_emailtextcontent"] = paramEmail.EmailTextContent;
+                OptionSetValueCollection typeOfEmail = new OptionSetValueCollection();
+                if (paramEmail.InternalEmail)
+                    typeOfEmail.Add(new OptionSetValue(100000000));
+                if (paramEmail.ExternalEmail)
+                    typeOfEmail.Add(new OptionSetValue(100000001));
+                enMSR["imc_typeofemail"] = typeOfEmail;
+                enMSR["imc_targetaudiencedescriptionforemail"] = paramEmail.TargetAudienceDescription;
+                service.Update(enMSR);
+
+            }
+
+        }
+
+        public void SMS(SMS paramSMS, string Id)
+        {
+
+            Guid UserId = ValidateUser();
+            if (UserId != null)
+            {
+
+                Entity enMSR = new Entity("campaign");
+                enMSR.Id = new Guid(Id);
+                enMSR["imc_smstext"] = paramSMS.SMSTextContent; 
+                OptionSetValueCollection smsLangauge = new OptionSetValueCollection();
+                if (paramSMS.EnglishSMS)
+                    smsLangauge.Add(new OptionSetValue(100000000));
+                if (paramSMS.ArabicSMS)
+                    smsLangauge.Add(new OptionSetValue(100000001));
+                enMSR["imc_smslanguage"] = smsLangauge;
+                enMSR["imc_targetaudiencedescriptionforsms"] = paramSMS.TargetAudienceDescription;
+                service.Update(enMSR);
+
+            }
+
         }
 
         public void CreateNotes(string subject, string filename, byte[] data, string entityId)
